@@ -1,0 +1,38 @@
+*, *:after, *:before {
+    box-sizing: border-box;
+}
+
+.taco-logo {
+    max-height: 250px;
+    max-width: 250px;
+    display: block;
+    margin: auto;
+}
+
+div.ingredient-group:nth-child(odd) {
+    float: left;
+    padding-right: 20px;
+}
+
+div.ingredient-group:nth-child(even) {
+    float: left;
+    padding-right: 0;
+}
+
+div.ingredient-group {
+    width: 50%;
+}
+
+.grid:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+span.validationError {
+    color: red;
+}
+
+button.submit-taco {
+    margin-top: 10px;
+}

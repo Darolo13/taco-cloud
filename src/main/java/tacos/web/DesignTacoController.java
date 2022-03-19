@@ -22,6 +22,9 @@ import tacos.TacoOrder;
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
 public class DesignTacoController {
+
+    private static final String REDIRECT_CURRENT_ORDER = "redirect:/orders/current";
+
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
@@ -58,6 +61,15 @@ public class DesignTacoController {
         return "design";
     }
 
+    @PostMapping
+    public String processTaco(Taco taco,
+                              @ModelAttribute TacoOrder tacoOrder) {
+        tacoOrder.addTaco(taco);
+        log.info("Processing taco: {}", taco);
+
+        return REDIRECT_CURRENT_ORDER;
+    }
+
     private Iterable<Ingredient> filterByType(
             List<Ingredient> ingredients, Type type) {
         return ingredients
@@ -65,4 +77,5 @@ public class DesignTacoController {
                 .filter(x -> x.getType().equals(type))
                 .collect(Collectors.toList());
     }
+
 }
