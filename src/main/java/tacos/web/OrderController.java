@@ -12,14 +12,20 @@ import tacos.TacoOrder;
 
 import javax.validation.Valid;
 
+import tacos.data.OrderRepository;
+
 @Slf4j
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
 public class OrderController {
 
-
+    private final OrderRepository orderRepo;
     private static final String REDIRECT_TO = "redirect:/";
+
+    public OrderController(OrderRepository orderRepo) {
+        this.orderRepo = orderRepo;
+    }
 
     @GetMapping("/current")
     public String orderForm() {
@@ -34,6 +40,7 @@ public class OrderController {
         }
 
         log.info("Order submitted: {}", order);
+        orderRepo.save(order);
         sessionStatus.setComplete();
 
         return REDIRECT_TO;
